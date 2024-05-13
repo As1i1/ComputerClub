@@ -7,9 +7,11 @@
 #include <exception>
 #include <utility>
 #include <list>
+#include <string>
+#include <istream>
 
 namespace parsing {
-    std::pair<club_info, std::list<event>> parse(std::istream &input);
+    std::pair<club_info, std::list<event>> parse(std::istream&);
 
     class parse_exception : public std::exception {
     public:

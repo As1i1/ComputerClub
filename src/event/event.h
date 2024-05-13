@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <chrono>
+#include <string>
 
 enum class event_type {
     // in events
