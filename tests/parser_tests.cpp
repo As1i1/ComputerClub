@@ -17,6 +17,9 @@ TEST(parse_test, simple) {
 
 TEST(parse_test, example) {
     std::ifstream input("tests/test_cases/case_1");
+    if (!input.is_open()) {
+        input = std::ifstream("test_cases/case_1");
+    }
     auto [h, v] = parsing::parse(input);
     ASSERT_EQ(h.place_count, 3);
     ASSERT_EQ(h.cost, 10);
