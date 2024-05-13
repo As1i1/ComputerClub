@@ -61,6 +61,7 @@ public:
                 case event_type::CLIENT_WAITING:
 //                    if (!clients_in_club.contains(it->client_name)) {
 //                        add_error(it, "ClientUnknown"); // TODO
+//                        continue;
 //                    }
                     if (!free_places.empty()) {
                         add_error(it, "ICanWaitNoLonger!");

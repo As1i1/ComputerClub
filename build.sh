@@ -1,3 +1,4 @@
 #!/bin/bash
-cmake . -B=build-cmake # TODO
-cmake --build build-cmake
+cd src
+cmake . -B=build-cmake-release -DCMAKE_BUILD_TYPE=Release
+cmake --build build-cmake-release
