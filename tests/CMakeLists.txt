@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(GTest CONFIG REQUIRED)
 
-#file(GLOB SRC ../src/*.cpp) # TODO remove main file
 file(GLOB EVENT ../src/event/*.cpp)
 file(GLOB PARSER ../src/parser/*.cpp)
-add_executable(test ${EVENT} ${PARSER} parser_tests.cpp)
+file(GLOB TESTS ../tests/*.cpp)
+add_executable(test ${EVENT} ${PARSER} parser_tests.cpp correctness_test.cpp)
 
 target_link_libraries(test PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
 
