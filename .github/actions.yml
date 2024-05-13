@@ -1,0 +1,35 @@
+name: CMake build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - uses: actions/checkout@v3
+      with:
+        repository: microsoft/vcpkg
+        path: vcpkg
+
+    - name: Configure CMake
+
+      run: |
+        vcpkg/bootstrap-vcpkg.sh
+        cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      run: 
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} 
+
+        
+      
