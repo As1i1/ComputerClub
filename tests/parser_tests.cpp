@@ -16,7 +16,7 @@ TEST(parse_test, simple) {
 }
 
 TEST(parse_test, example) {
-    std::ifstream input("test_cases/case_1"); // TODO set working directory to folder tests
+    std::ifstream input("tests/test_cases/case_1");
     auto [h, v] = parsing::parse(input);
     ASSERT_EQ(h.place_count, 3);
     ASSERT_EQ(h.cost, 10);
