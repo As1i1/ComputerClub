@@ -24,6 +24,7 @@ struct event{
     event_type type;
     std::string client_name;
     std::size_t place_no = place_npos;
+    std::string msg;
 };
 
 struct club_info {
