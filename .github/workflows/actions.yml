@@ -18,7 +18,6 @@ jobs:
 
       - name: Configure CMake
         run: |
-          vcpkg/bootstrap-vcpkg.sh
           cd src
           cmake -B=build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
