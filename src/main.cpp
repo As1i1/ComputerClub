@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     }
 
     club_info info{};
-    std::list<event> events;
+    std::vector<event> events;
     try {
         std::tie(info, events) = parsing::parse(file);
     } catch (const parsing::parse_exception &e) {

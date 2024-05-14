@@ -9,7 +9,6 @@
 #include <string>
 #include <sstream>
 #include <utility>
-#include <list>
 #include <algorithm>
 
 namespace {
@@ -17,9 +16,9 @@ namespace {
     public:
         explicit parser(std::istream &input) : input(input) {}
 
-        std::pair<club_info, std::list<event>> parse() {
+        std::pair<club_info, std::vector<event>> parse() {
             club_info info = parse_club_info();
-            std::list<event> events = parse_events(info.place_count);
+            std::vector<event> events = parse_events(info.place_count);
             return {info, events};
         }
 
@@ -46,8 +45,8 @@ namespace {
             return info;
         }
 
-        std::list<event> parse_events(std::size_t place_count) {
-            std::list<event> events;
+        std::vector<event> parse_events(std::size_t place_count) {
+            std::vector<event> events;
             std::chrono::minutes previous_time{0};
             for (;!input.eof();++line_no) {
                 events.emplace_back(get_next_event(previous_time, place_count));
@@ -165,6 +164,6 @@ namespace {
     };
 }
 
-std::pair<club_info, std::list<event>> parsing::parse(std::istream &input) {
+std::pair<club_info, std::vector<event>> parsing::parse(std::istream &input) {
     return parser(input).parse();
 }

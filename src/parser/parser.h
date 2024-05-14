@@ -6,12 +6,12 @@
 #include "../event/event.h"
 #include <exception>
 #include <utility>
-#include <list>
+#include <vector>
 #include <string>
 #include <istream>
 
 namespace parsing {
-    std::pair<club_info, std::list<event>> parse(std::istream&);
+    std::pair<club_info, std::vector<event>> parse(std::istream&);
 
     class parse_exception : public std::exception {
     public:
