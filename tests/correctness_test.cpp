@@ -76,7 +76,6 @@ namespace {
         auto [answer_amount, answer_events] = parse(path_to_ans);
         ASSERT_EQ(res_events.size(), answer_events.size());
         for (std::size_t i = 0; i < res_events.size(); ++i) {
-            std::cout << i << "\n";
             ASSERT_TRUE(check_events(res_events[i], answer_events[i]));
         }
         ASSERT_EQ(amount, answer_amount);
