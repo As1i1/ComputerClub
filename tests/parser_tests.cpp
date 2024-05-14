@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 #include <fstream>
+#include <format>
 #include <iostream>
 
 TEST(header, correct) {

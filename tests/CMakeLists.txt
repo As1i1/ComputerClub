@@ -11,6 +11,5 @@ file(GLOB PROCESS ../src/event_processing.cpp)
 file(GLOB TESTS ../tests/*.cpp)
 add_executable(test ${EVENT} ${PARSER} ${TESTS} ${PROCESS})
 
-target_link_libraries(test PRIVATE GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
-
+target_link_libraries(test PRIVATE GTest::gtest GTest::gtest_main)
 
