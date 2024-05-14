@@ -3,6 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <fstream>
+#include <format>
 #include "../src/parser/parser.h"
 
 TEST(header, correct) {
