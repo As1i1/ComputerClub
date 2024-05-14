@@ -29,10 +29,10 @@ public:
         std::vector<event> processed_events;
 
         for (auto&& e: events) {
-            processed_events.emplace_back(e);
             if (e.time > info.end_time && !clients_in_club.empty()) {
                 clear_computer_club(processed_events);
             }
+            processed_events.emplace_back(e);
             if (e.time < info.start_time || e.time > info.end_time) {
                 add_error(processed_events, "NotOpenYet", e);
                 continue;
@@ -61,13 +61,13 @@ public:
                     }
                     break;
                 case event_type::CLIENT_WAITING:
-//                    if (!clients_in_club.contains(e.client_name)) {
-//                        add_error(it, "ClientUnknown"); // TODO
-//                        continue;
-//                    }
+                    if (!clients_in_club.contains(e.client_name)) {
+                        add_error(processed_events, "ClientUnknown", e); // TODO
+                        continue;
+                    }
                     if (!free_places.empty()) {
                         add_error(processed_events, "ICanWaitNoLonger!", e);
-                    } else if (clients_queue.size() - skip_clients.size() > info.place_count) {
+                    } else if (clients_queue.size() - skip_clients.size() >= info.place_count) {
                         processed_events.emplace_back(event{
                                 .time = e.time,
                                 .type = event_type::OUT_CLIENT_LEFT,
@@ -160,7 +160,6 @@ private:
         result.emplace_back(event{
                 .time = e.time,
                 .type = event_type::OUT_ERROR,
-                .client_name = e.client_name,
                 .msg = std::move(msg)
         });
     }
