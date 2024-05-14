@@ -4,6 +4,7 @@
 #pragma once
 
 #include "../event/event.h"
+
 #include <exception>
 #include <utility>
 #include <vector>

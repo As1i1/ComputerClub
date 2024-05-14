@@ -1,11 +1,14 @@
 //
 // Created by Dubinin Dmitrii on 5/12/24.
 //
-#include "gtest/gtest.h"
-#include <fstream>
-#include <algorithm>
+
 #include "../src/event_processing.h"
 #include "../src/parser/parser.h"
+
+#include "gtest/gtest.h"
+
+#include <fstream>
+#include <algorithm>
 
 namespace {
     bool check_events(const event &e1, const event &e2) {
@@ -63,7 +66,7 @@ namespace {
         return {result_amount, result_events};
     }
 
-    void test_correct(const std::string& path, const std::string& path_to_ans) {
+    void test_correct(const std::string &path, const std::string &path_to_ans) {
         std::ifstream input(path);
         if (!input.is_open()) {
             input = std::ifstream("tests/" + path);

@@ -3,6 +3,8 @@
 //
 
 #include "event_processing.h"
+
+#include <cstddef>
 #include <queue>
 #include <map>
 #include <set>
@@ -51,8 +53,8 @@ public:
                     } else if (places[e.place_no - 1] != ntime) {
                         add_error(processed_events, "PlaceIsBusy", e);
                     } else {
-                        int pos = static_cast<int>(clients_in_club[e.client_name]);
-                        clients_in_club[e.client_name] = client_state{static_cast<int>(e.place_no - 1)};
+                        auto pos = static_cast<std::int32_t>(clients_in_club[e.client_name]);
+                        clients_in_club[e.client_name] = client_state{static_cast<std::int32_t>(e.place_no - 1)};
                         places[e.place_no - 1] = e.time;
                         free_places.erase(e.place_no - 1);
                         if (pos >= 0) {
@@ -94,7 +96,7 @@ public:
                                 skip_clients.insert(e.client_name);
                                 break;
                             default:
-                                int pos = static_cast<int>(clients_in_club[e.client_name]);
+                                auto pos = static_cast<std::int32_t>(clients_in_club[e.client_name]);
                                 free_place(processed_events, pos, e.time);
                                 break;
                         }
@@ -113,7 +115,7 @@ public:
     }
 
 private:
-    void free_place(std::vector<event>& result, int place, std::chrono::minutes end_time) {
+    void free_place(std::vector<event>& result, std::int32_t place, std::chrono::minutes end_time) {
         place_amount[place].first += info.cost * (((end_time - places[place]).count() + 59) / 60);
         place_amount[place].second += end_time - places[place];
         places[place] = ntime;
@@ -156,11 +158,11 @@ private:
         clients_in_club.clear();
     }
 
-    static void add_error(std::vector<event>& result, std::string msg, const event& e) {
+    static void add_error(std::vector<event>& result, const std::string& msg, const event& e) {
         result.emplace_back(event{
                 .time = e.time,
                 .type = event_type::OUT_ERROR,
-                .msg = std::move(msg)
+                .msg = msg
         });
     }
 

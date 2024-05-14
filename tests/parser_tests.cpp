@@ -1,10 +1,13 @@
 //
 // Created by Dubinin Dmitrii on 5/12/24.
 //
-#include <gtest/gtest.h>
-#include <fstream>
-#include <format>
+
 #include "../src/parser/parser.h"
+
+#include <gtest/gtest.h>
+
+#include <fstream>
+#include <iostream>
 
 TEST(header, correct) {
     std::stringstream s("123\n10:00 12:00\n100");

@@ -4,6 +4,7 @@
 
 #include "parser.h"
 
+#include <cstddef>
 #include <istream>
 #include <vector>
 #include <string>
@@ -82,7 +83,7 @@ namespace {
                 throw parsing::parse_exception("Wrong event order in line " + std::to_string(line_no));
             }
 
-            int type_int_value;
+            std::int32_t type_int_value;
             try {
                 type_int_value = std::stoi(splitted[1]);
             } catch (std::exception &e) {

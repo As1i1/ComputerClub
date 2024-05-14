@@ -4,10 +4,12 @@
 #include "parser/parser.h"
 #include "event/event.h"
 #include "event_processing.h"
+
+#include <cstddef>
 #include <iostream>
 #include <fstream>
 
-static std::string format_number(long i) {
+static std::string format_number(std::int64_t i) {
     std::stringstream s;
     s << std::setfill('0') << std::setw(2) << i;
     return s.str();
