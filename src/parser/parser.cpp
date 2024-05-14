@@ -25,22 +25,35 @@ namespace {
     private:
         club_info parse_club_info() {
             club_info info{};
+            std::int64_t cnt;
             try {
-                info.place_count = std::stoi(get_next_line());
+                cnt = std::stoi(get_next_line());
             } catch (const std::exception &e) {
                 throw parsing::parse_exception("Cannot parse number in line 1");
             }
+            if (cnt <= 0) {
+                throw parsing::parse_exception("Place count must be positive. Error in line 1");
+            }
+            info.place_count = cnt;
             std::vector<std::string> working_hours = split(get_next_line(), ' ');
             if (working_hours.size() != 2) {
                 throw parsing::parse_exception("Expected working hours in line 2");
             }
             info.start_time = parse_time(working_hours[0]);
             info.end_time = parse_time(working_hours[1]);
+            if (info.end_time < info.start_time) {
+                throw parsing::parse_exception("Wrong time interval on line 2");
+            }
+            std::int64_t cost;
             try {
-                info.cost = std::stoi(get_next_line());
+                cost = std::stoi(get_next_line());
             } catch (const std::exception &e) {
                 throw parsing::parse_exception("Cannot parse number in line 3");
             }
+            if (cost <= 0) {
+                throw parsing::parse_exception("Wrong cost on line 2");
+            }
+            info.cost = cost;
             line_no = 4;
             return info;
         }
@@ -48,7 +61,7 @@ namespace {
         std::vector<event> parse_events(std::size_t place_count) {
             std::vector<event> events;
             std::chrono::minutes previous_time{0};
-            for (;!input.eof();++line_no) {
+            for (; !input.eof(); ++line_no) {
                 events.emplace_back(get_next_event(previous_time, place_count));
                 previous_time = events.back().time;
             }
@@ -113,15 +126,18 @@ namespace {
             if (splitted.size() != 2) {
                 throw parsing::parse_exception("Unsupported time format in line " + std::to_string(line_no));
             }
-            std::size_t h;
-            std::size_t m;
+            if (splitted[0].size() != 2 || splitted[1].size() != 2) {
+                throw parsing::parse_exception("Unsupported time format in line " + std::to_string(line_no));
+            }
+            std::int64_t h;
+            std::int64_t m;
             try {
-                h = std::stoull(splitted[0]);
-                m = std::stoull(splitted[1]);
+                h = std::stoi(splitted[0]);
+                m = std::stoi(splitted[1]);
             } catch (std::exception &e) {
                 throw parsing::parse_exception("Unsupported time format in line " + std::to_string(line_no));
             }
-            if (h >= 24 || m >= 60) {
+            if (h >= 24 || m >= 60 || h < 0 || m < 0) {
                 throw parsing::parse_exception("Unsupported time format in line " + std::to_string(line_no));
             }
             return std::chrono::minutes{h * 60 + m};
