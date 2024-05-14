@@ -8,7 +8,6 @@
 
 #include <fstream>
 #include <format>
-#include <iostream>
 
 TEST(header, correct) {
     std::stringstream s("123\n10:00 12:00\n100");
@@ -21,7 +20,6 @@ TEST(header, correct) {
 }
 
 static void check_error(char line_no, std::size_t line_no_i, const std::string& s) {
-    std::cout << s;
     std::stringstream iss(s);
     ASSERT_THROW(parsing::parse(iss), parsing::parse_exception);
     try {
