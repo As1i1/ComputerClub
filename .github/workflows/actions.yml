@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          cd tests
+          cd src
           cmake --build build --config ${{env.BUILD_TYPE}}
   testing:
     env:
